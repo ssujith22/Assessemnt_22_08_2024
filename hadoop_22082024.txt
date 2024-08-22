@@ -1,0 +1,128 @@
+Big Data (HDFS) Assignment
+Problem Statement: Using Command line of HDFS, perform following tasks. 
+
+a)Create a directory /hadoop/hdfs/ in HDFS 
+
+--create parent directory as -p
+hdfs dfs -mkdir -p /hadoop/hdfs
+
+--verify
+hdfs dfs -test -d /hadoop/hdfs
+echo $?
+
+--view created directory: hdfs show under hadoop
+hdfs dfs -ls /hadoop
+
+b)Create a temp directory in Hadoop. Run HDFS command to delete “temp” directory.
+
+--create directory
+hdfs dfs -mkdir /temp
+
+--The -r option ensures that if the directory contains files or subdirectories, they will be deleted as well.
+hdfs dfs -rm -r /temp
+
+c)List all the files/directories for the given hdfs destination path.
+
+--list all files and directories
+--If you omit the path, it will list the contents of the current working directory in HDFS.
+hdfs dfs -ls /hadoop/hdfs/
+
+d)Command that will list the directories(not files) in /hadoop folder.
+
+hdfs dfs -ls -d /hadoop/*/
+
+-ls: Lists the status of the specified files and directories.
+-d: Restricts the listing to directories only (the wildcard */ ensures only directories are matched).
+/hadoop/*/: The path pattern to match all directories under /hadoop.
+This command will list all directories inside the /hadoop directory on HDFS.
+
+e)Command to list recursively all files in hadoop directory and all subdirectories in hadoop directory
+
+hdfs dfs -ls -R /hadoop
+
+-R: Recursively lists all files and directories within the specified directory and its subdirectories.
+/hadoop: The directory for which you want to list all files and subdirectories.
+This command will output a recursive listing of all files and directories within the /hadoop directory and any subdirectories.
+
+f)List all the directory inside /hadoop/hdfs/ directory which starts with 'dir'.
+hdfs dfs -ls -d /hadoop/hdfs/dir*/
+note: list all directories within /hadoop/hdfs/ whose names start with "dir".
+
+g)Create a temp.txt file. Copies this file from local file system to HDFS
+
+--create a simple text file using the echo
+echo "This is a temporary file." > temp.txt
+
+-- just want an empty file:
+touch temp.txt
+
+--Copy the temp.txt File(from the local file system) to HDFS
+hdfs dfs -put temp.txt /hadoop/hdfs/
+
+--verify the File Copy
+hdfs dfs -ls /hadoop/hdfs/
+
+h)Copies the file from HDFS to local file system.
+
+hdfs dfs -get /hadoop/hdfs/temp.txt /home/user/
+
+hdfs dfs -get: Copies files from HDFS to the local file system.
+/user/hadoop/temp.txt: The path to the file in HDFS that you want to copy.
+/home/user/: The local directory where you want to copy the file.
+
+i)Command to copy from local directory with the source being restricted to a local file reference.
+
+--This copies temp.txt from HDFS to the /home/user/ directory on your local system.
+hdfs dfs -get /hadoop/hdfs/temp.txt /home/user/
+
+j)Command to copies to local directory with the source being restricted to a local file reference.
+
+--Assume you have a local file located at /home/user/temp.txt, and you want to copy it to the /user/hadoop/ directory in HDFS. The command would b
+hdfs dfs -put /home/user/temp.txt /hadoop/hdfs/
+
+/home/user/temp.txt: This is the path to the local file you want to copy.
+/user/hadoop/: This is the destination directory in HDFS where you want the file to be copied.
+Ensure that the local file path is correct and that you have the necessary permissions to write to the HDFS destination directory.
+
+k)Command to move from local directory source to Hadoop directory.
+
+hdfs dfs -moveFromLocal /home/user/temp.txt /hadoop/hdfs/
+
+l)Deletes the directory and any content under it recursively.
+
+hdfs dfs -rm -r /hadoop/hdfs/temp
+
+hdfs dfs -rm: Command to remove files or directories.
+-r: Option to remove directories and their contents recursively.
+/user/hadoop/temp: The path to the directory you want to delete in HDFS.
+
+
+m)List the files and show Format file sizes in a human-readable fashion.
+
+hdfs dfs -du -h /user/hadoop/
+
+hdfs dfs -du: Displays the sizes of files and directories.
+-h: Human-readable format (e.g., KB, MB, GB).
+/user/hadoop/: The path to the directory or file you want to list.
+
+
+hdfs dfs -du -h -R /user/hadoop/
+
+Listing All Files in a Directory: If you want to list all files and directories recursively with their sizes in a human-readable format, 
+you can combine -du -h with the -R option:
+
+n)Take a source file and outputs the file in text format on the terminal.
+o)Display the content of the HDFS file test on your /user/hadoop2 directory.
+p)Append the content of a local file test1 to a hdfs file test2.
+q)Show the capacity, free and used space of the filesystem
+r)Shows the capacity, free and used space of the filesystem.  Add parameter Formats the sizes of files in a human-readable fashion.
+s)Show the amount of space, in bytes, used by the files that match the specified file pattern.
+t)Show the amount of space, in bytes, used by the files that match the specified file pattern. Formats the sizes of files in a human-readable fashion.
+u)Check the health of the Hadoop file system.
+v)Command to turn off the safemode of Name Node.
+w)HDFS command to format NameNode.
+x)Create a file named hdfstest.txt and change it number of replications to 3.
+y)Write command to display number of replicas for hdfstest.txt file.
+z)Write command to Display the status of file “hdfstest.txt” like block size, filesize in bytes.
+aa)Write HDFS command to change file permission from 
+ rw – r – r to rwx-rw-x for hdfstest.txt.  
